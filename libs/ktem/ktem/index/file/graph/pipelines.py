@@ -39,7 +39,6 @@ except ImportError:
         )
     )
 
-
 filestorage_path = Path(settings.KH_FILESTORAGE_PATH) / "graphrag"
 filestorage_path.mkdir(parents=True, exist_ok=True)
 
@@ -177,15 +176,15 @@ class GraphRAGRetrieverPipeline(BaseFileIndexRetriever):
 
         root_path, _ = prepare_graph_index_path(graph_id)
         output_path = root_path / "output"
-        child_paths = sorted(
-            list(output_path.iterdir()), key=lambda x: x.stem, reverse=True
-        )
+        # child_paths = sorted(
+        #     list(output_path.iterdir()), key=lambda x: x.stem, reverse=True
+        # )
+        #
+        # # get the latest child path
+        # assert child_paths, "GraphRAG index output not found"
+        # latest_child_path = Path(child_paths[0]) / "artifacts"
 
-        # get the latest child path
-        assert child_paths, "GraphRAG index output not found"
-        latest_child_path = Path(child_paths[0]) / "artifacts"
-
-        INPUT_DIR = latest_child_path
+        INPUT_DIR = output_path
         LANCEDB_URI = str(INPUT_DIR / "lancedb")
         COMMUNITY_REPORT_TABLE = "create_final_community_reports"
         ENTITY_TABLE = "create_final_nodes"
