@@ -13,7 +13,8 @@ this_file = getframeinfo(cur_frame).filename
 this_dir = Path(this_file).parent
 
 # change this if your app use a different name
-KH_PACKAGE_NAME = "kotaemon_app"
+KH_PACKAGE_NAME = "esg_study_app"
+KH_APP_NAME = "ESGStudy"
 
 KH_APP_VERSION = config("KH_APP_VERSION", None)
 if not KH_APP_VERSION:
@@ -64,7 +65,7 @@ KH_DOC_DIR = this_dir / "docs"
 
 KH_MODE = "dev"
 KH_FEATURE_USER_MANAGEMENT = config(
-    "KH_FEATURE_USER_MANAGEMENT", default=True, cast=bool
+    "KH_FEATURE_USER_MANAGEMENT", default=False, cast=bool
 )
 KH_USER_CAN_SEE_PUBLIC = None
 KH_FEATURE_USER_MANAGEMENT_ADMIN = str(
@@ -259,9 +260,7 @@ KH_VLM_ENDPOINT = "{0}/openai/deployments/{1}/chat/completions?api-version={2}".
     config("OPENAI_API_VERSION", default=""),
 )
 
-
 SETTINGS_APP: dict[str, dict] = {}
-
 
 SETTINGS_REASONING = {
     "use": {
@@ -273,7 +272,12 @@ SETTINGS_REASONING = {
     "lang": {
         "name": "Language",
         "value": "en",
-        "choices": [("English", "en"), ("Japanese", "ja"), ("Vietnamese", "vi")],
+        "choices": [
+            ("English", "en"),
+            ("Japanese", "ja"),
+            ("Vietnamese", "vi"),
+            ("Chinese", "zh"),
+        ],
         "component": "dropdown",
     },
     "max_context_length": {
@@ -282,7 +286,6 @@ SETTINGS_REASONING = {
         "component": "number",
     },
 }
-
 
 KH_INDEX_TYPES = [
     "ktem.index.file.FileIndex",

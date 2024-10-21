@@ -1,5 +1,5 @@
 :root {
-  --main-area-height: calc(100vh - 110px);
+  --main-area-height: calc(100vh);
 }
 
 /* no footer */
@@ -45,6 +45,11 @@ footer {
   border-radius: var(--radius-lg);
   background-clip: padding-box; */
 }
+
+.header-bar {
+  display: none !important;
+}
+
 
 /* selected buttons have highlighted text */
 button.selected {

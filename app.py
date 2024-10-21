@@ -1,6 +1,7 @@
 import os
 
 from dotenv import load_dotenv
+from fastapi.middleware.cors import CORSMiddleware  # 引入 CORS 中间件
 from theflow.settings import settings as flowsettings
 
 load_dotenv()
@@ -16,6 +17,20 @@ from ktem.main import App  # noqa
 
 app = App()
 demo = app.make()
+
+# 获取 FastAPI 实例并添加 CORS 中间件
+fastapi_app = demo.app  # 访问 Gradio 底层的 FastAPI 应用实例
+
+fastapi_app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "*"
+    ],  # 允许所有来源的跨域请求，或指定特定域名 ['https://example.com']
+    allow_credentials=True,
+    allow_methods=["*"],  # 允许所有 HTTP 方法（GET, POST 等）
+    allow_headers=["*"],  # 允许所有请求头
+)
+
 demo.queue().launch(
     favicon_path=app._favicon,
     inbrowser=False,
